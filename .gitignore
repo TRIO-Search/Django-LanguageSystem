@@ -1,9 +1,19 @@
-venv/
+# Django
+*.log
+*.pot
+*.sqlite3
 db.sqlite3
-__pycache__/
+media/
+staticfiles/
+
 # Python
 __pycache__/
 *.py[cod]
+*.so
+.Python
+venv/
+env/
 
-# Database
-db.sqlite3
+# IDE
+.idea/
+.vscode/
