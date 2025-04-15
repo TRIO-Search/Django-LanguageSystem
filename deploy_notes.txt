@@ -1,0 +1,6 @@
+部署步骤：
+1. git pull origin main
+2. pip install -r requirements.txt
+3. python manage.py collectstatic
+4. 重启Gunicorn
+
