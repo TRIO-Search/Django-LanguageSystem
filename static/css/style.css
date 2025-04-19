@@ -1,0 +1,16 @@
+/* 基础样式 */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
