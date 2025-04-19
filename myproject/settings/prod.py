@@ -16,7 +16,7 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/home/ubuntu/my-project/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # 生产环境收集静态文件用 
 
 USE_X_FORWARDED_HOST = True  # 如果使用代理
 

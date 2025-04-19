@@ -12,7 +12,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+STATICFILES_DIRS = [  # 开发环境专用
+    os.path.join(BASE_DIR, 'static_dev'),
+]
 # 本地开发的额外配置
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
  # 邮件输出到控制台
