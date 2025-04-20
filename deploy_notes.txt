@@ -1,6 +1,79 @@
-部署步骤：
-1. git pull origin main
-2. pip install -r requirements.txt
-3. python manage.py collectstatic
-4. 重启Gunicorn
+🛠️ 开发环境 (WSL) 操作流程
+1. 日常开发
+# 激活虚拟环境
+cd ~/django-project
+source venv/bin/activate
+# 开发完成后提交代码
+git add .
+git commit -m "功能描述：修改内容简要说明"
+git push origin main
 
+2. 本地测试
+# 运行开发服务器
+python manage.py runserver
+# 执行单元测试
+python manage.py test
+
+🚀 生产环境 (VPS) 部署流程
+1. 拉取最新代码
+cd /home/ubuntu/my-project
+git fetch origin main
+git reset --hard origin/main  # 强制同步代码（注意会覆盖本地修改）
+
+2. 更新依赖和环境
+# 激活虚拟环境
+source venv/bin/activate
+# 安装/更新依赖
+pip install -r requirements.txt
+# 迁移数据库（如有变更）
+python manage.py migrate
+# 收集静态文件
+python manage.py collectstatic --noinput
+
+3. 重启服务
+sudo systemctl restart gunicorn
+sudo systemctl restart nginx
+
+4. 验证部署
+# 快速测试
+curl -I http://localhost
+# 或浏览器访问 http://你的服务器IP
+
+⚡ 一键部署脚本（可选）
+在VPS上创建 deploy.sh：
+#!/bin/bash
+cd /home/ubuntu/my-project
+git fetch origin main
+git reset --hard origin/main
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
+sudo systemctl restart gunicorn
+sudo systemctl restart nginx
+echo "Deployment completed!"
+
+赋予执行权限：
+chmod +x deploy.sh
+
+以后只需运行：
+./deploy.sh
+
+🔍 故障排查清单
+问题现象	检查命令
+代码未更新	git log -1
+服务未启动	sudo systemctl status gunicorn
+静态文件404	ls -la /home/ubuntu/my-project/static/
+数据库错误	python manage.py check --deploy
+
+📌 重要注意事项
+生产环境禁忌
+永远不要直接在生产环境修改代码
+禁止在生产环境执行 git pull（应使用 fetch + reset）
+关闭DEBUG模式：DEBUG = False
+
+备份策略
+# 数据库备份
+cp /home/ubuntu/my-project/db.sqlite3 /backups/db_$(date +%Y%m%d).sqlite3
+# 配置文件备份
+tar -czvf /backups/config_$(date +%Y%m%d).tar.gz /etc/nginx/ /etc/systemd/system/gunicorn.service
