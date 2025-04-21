@@ -14,3 +14,20 @@ nav a {
     padding: 20px;
     border-radius: 5px;
 }
+
+/*头像基础样式*/
+.avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border:2px solid #ddd;/*可选边框*/
+}
+
+/*屏幕宽度太低时调整为80x80*/
+@media (max-width: 768px){
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+}

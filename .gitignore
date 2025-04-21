@@ -5,6 +5,10 @@
 db.sqlite3
 media/
 staticfiles/
+# 保留static/目录下的源码文件（CSS/JS等）
+!/static/css/
+!/static/js/
+!/static/images/default_avatar.png  # 显式包含默认头像
 
 # Python
 __pycache__/

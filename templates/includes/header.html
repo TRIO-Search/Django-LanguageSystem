@@ -1,4 +1,9 @@
 <nav>
     <a href="{% url 'home' %}">首页</a> |
-    <a href="{% url 'about' %}">关于</a>
+    <a href="{% url 'about' %}">关于</a> |
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile' %}">个人页面</a> |
+    {% else %}
+    <a href="{% url 'login' %}">登录</a> |
+    {% endif %}
 </nav>

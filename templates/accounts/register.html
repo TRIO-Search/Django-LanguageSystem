@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>注册账号</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- 显示表单级错误 -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        {% for field, errors in form.errors.items %}
+        {{ field }}: {{ errors|join:", " }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- 显示字段级错误 -->
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+        <small class="text-danger">{{ field.errors }}</small>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">注册</button>
+</form>
+{% endblock %}

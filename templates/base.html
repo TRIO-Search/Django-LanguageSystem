@@ -23,6 +23,10 @@
 
 <body>
     {% include 'includes/header.html' %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link">退出登录</button>
+    </form>
     <div class="container">
         {% block content %}{% endblock %}
     </div>

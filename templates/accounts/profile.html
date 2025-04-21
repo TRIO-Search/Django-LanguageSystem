@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <!--引入css文件-->
+    <link href="{% static 'css/sytle.css' %}" rel="sytlesheet">
+</head>
+<div class="profile-container">
+    <div class="avatar-section">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" 
+             alt="用户头像"
+             class="avatar"
+             loading="lazy">
+        {% else %}
+        <img src="/static/images/default_avatar.png" 
+             alt="默认头像" 
+             class="avatar">
+        {% endif %}
+    </div>
+    <div class="info-section">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.bio }}</p>
+        <a href="{{ user.website }}" target="_blank">个人网站</a>
+    </div>
+</div>
+
+<h3>编辑资料</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">更新</button>
+</form>
+{% endblock %}
