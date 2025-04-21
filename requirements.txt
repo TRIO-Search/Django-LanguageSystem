@@ -2,3 +2,4 @@ asgiref==3.8.1
 Django==5.2
 sqlparse==0.5.3
 python-dotenv>=1.1.0
+Pillow==10.3.0
