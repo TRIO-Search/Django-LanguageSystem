@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, ProfileForm
 from django.contrib.auth.views import LoginView
 
+from .models import UserDocument
+from .forms import DocumentUploadForm
+
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
     redirect_authenticated_user = True #已登录直接跳转
@@ -35,9 +38,25 @@ def profile(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=request.user)
+    documents = UserDocument.objects.filter(owner=request.user).order_by('-uploaded_at')
     return render(request, 'accounts/profile.html', {
         'user': request.user,
-        'form': form
+        'documents':documents,
+        'form': form,
     })
 
+@login_required
+def upload_document(request):
+    if request.method == 'POST':
+        form = DocumentUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            doc = form.save(commit=False)
+            doc.owner = request.user
+            doc.save()
+            return redirect('profile')
+    else:
+        form = DocumentUploadForm()
+    return render(request, 'accounts/upload.html', {'form': form})
 
+def test_controls(request):
+    return render(request, 'accounts/test_controls.html')

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="test-container">
+    <!-- 文本输入 -->
+    <input type="text" placeholder="文本输入框">
+
+    <!-- 下拉菜单 -->
+    <select>
+        <option>选项1</option>
+        <option>选项2</option>
+    </select>
+
+    <!-- 多选框 -->
+    <div>
+        <input type="checkbox" id="check1">
+        <label for="check1">复选框</label>
+    </div>
+
+    <!-- 提交按钮 -->
+    <button type="submit" class="btn">提交</button>
+</div>
+{% endblock %}

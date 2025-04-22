@@ -26,6 +26,21 @@
     </div>
 </div>
 
+<h2>我的文档</h2>
+<a href="{% url 'upload_document' %}" class="btn btn-primary">上传新文档</a>
+
+<ul class="document-list">
+    {% for doc in documents %}
+    <li>
+        <a href="{{ doc.document.url}}">{{ doc.title }}</a>
+        <small>({{ doc.uploaded_at|date:"Y-m-d" }})</small>
+        <span class="uuid">UUID: {{ doc.uuid }}</span>
+    </li>
+    {% empty %}
+    <p>暂无文档</p>
+    {% endfor %}
+</ul>
+
 <h3>编辑资料</h3>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}

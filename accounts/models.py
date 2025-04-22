@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 
+
 class CustomUser(AbstractUser):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
@@ -34,5 +35,17 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-# Create your models here.
+class UserDocument(models.Model):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='所有者')
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='文档ID')
+    document = models.FileField(upload_to='user_docs/%Y/%m/%d/', verbose_name='文档文件')
+    title = models.CharField(max_length=100, default='未命名文档', verbose_name='文档标题')
+    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name='上传时间')
+
+    class Meta:
+        verbose_name = '用户文档'
+        verbose_name_plural = '用户文档'
+
+    def __str__(self):
+        return f"{self.title} ({self.owner.username})" 
 
