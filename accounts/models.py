@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 class CustomUser(AbstractUser):
-    
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+
     #自定义字段
     bio = models.TextField('个人简介',blank=True)
     avatar = models.ImageField('头像',upload_to='avatars/',blank=True, default='avatars/default_avatar.png')
