@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %} {# 添加i18n标签 #}
 
-{% block title %}关于{% endblock %}
+{% block title %}{% trans "About" %}{% endblock %}
 
 {% block content %}
-<h1>关于本项目</h1>
-<p>这是用Django在WSL环境下开发的网站作为练习</p>
+<h1>{% trans "About The Project" %}</h1>
+<p>{% trans "This is a website developed with Django in the WSL environment as an exercise" %}</p>
 {% endblock %}

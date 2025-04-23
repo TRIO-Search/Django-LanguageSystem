@@ -1,0 +1,371 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-23 11:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/forms.py:13
+msgid "Email"
+msgstr "邮箱"
+
+#: accounts/forms.py:14
+msgid "We'll never share your email with others."
+msgstr "我们不会向他人泄露你的邮箱"
+
+#: accounts/forms.py:21 templates/accounts/login.html:17
+msgid "Username"
+msgstr "用户名"
+
+#: accounts/forms.py:22 templates/accounts/login.html:22
+msgid "Password"
+msgstr "密码"
+
+#: accounts/forms.py:23
+msgid "Password Confirmation"
+msgstr "确认密码"
+
+#: accounts/forms.py:26
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "150字符以下，可用字母，数字和@/./+/-/_"
+
+#: accounts/forms.py:30
+msgid "This username is already taken."
+msgstr "这个名字已被注册"
+
+#: accounts/forms.py:31
+msgid "Contains invalid characters."
+msgstr "包含无效字符"
+
+#: accounts/forms.py:34
+msgid "The two password fields didn't match."
+msgstr "两个密码不匹配"
+
+#: accounts/forms.py:43
+msgid "Biography"
+msgstr "个人页面"
+
+#: accounts/forms.py:44
+msgid "Profile Picture"
+msgstr "头像"
+
+#: accounts/forms.py:45
+msgid "Website URL"
+msgstr "网站URL"
+
+#: accounts/forms.py:48
+msgid "Your personal or professional website (e.g. https://example.com)"
+msgstr "你的个人或官方网站（例如https://example.com）"
+
+#: accounts/forms.py:49
+msgid "Tell others about yourself"
+msgstr "向他人介绍你自己"
+
+#: accounts/forms.py:57
+msgid "File"
+msgstr "文件"
+
+#: accounts/forms.py:58 accounts/models.py:61
+msgid "Document Title"
+msgstr "文档标题"
+
+#: accounts/forms.py:61
+msgid "Allowed formats: PDF, DOCX, TXT (Max 10MB)"
+msgstr "允许上传PDF，DOCX，TXT（最大10M）"
+
+#: accounts/forms.py:62
+msgid "Give your document a descriptive name"
+msgstr "给你的文档一个名字"
+
+#: accounts/forms.py:66
+msgid "Invalid file format"
+msgstr "无效的文件格式"
+
+#: accounts/forms.py:67
+msgid "No file was selected"
+msgstr "没有文件被选中"
+
+#: accounts/forms.py:73
+msgid "My Document"
+msgstr "我的文档"
+
+#: accounts/models.py:10
+msgid "Personal Profile"
+msgstr "个人资料"
+
+#: accounts/models.py:11
+msgid "Write something about yourself"
+msgstr "写一下关于你自己的信息"
+
+#: accounts/models.py:12
+msgid "Avatar"
+msgstr "头像"
+
+#: accounts/models.py:14
+msgid "Profile picture image"
+msgstr "头像图片"
+
+#: accounts/models.py:15
+msgid "Personal Website"
+msgstr "个人网站"
+
+#: accounts/models.py:16
+msgid "Your personal or professional website"
+msgstr "你的个人或官方网站"
+
+#: accounts/models.py:23
+msgid "The groups this user belongs to. A user will get all permissions granted."
+msgstr "该用户所属的组，该用户将获得授予的所有权限"
+
+#: accounts/models.py:24
+msgid "groups"
+msgstr "组"
+
+#: accounts/models.py:30
+msgid "Specific permissions for this user."
+msgstr "此用户特定的权限"
+
+#: accounts/models.py:31
+msgid "user permissions"
+msgstr "用户权限"
+
+#: accounts/models.py:35
+msgid "User"
+msgstr "用户"
+
+#: accounts/models.py:36
+msgid "Users"
+msgstr "用户"
+
+#: accounts/models.py:45
+msgid "Owner"
+msgstr "所有者"
+
+#: accounts/models.py:51
+msgid "Document ID"
+msgstr "文档ID"
+
+#: accounts/models.py:55
+msgid "Document File"
+msgstr "文档文件"
+
+#: accounts/models.py:56
+msgid "Upload PDF, DOCX or TXT files"
+msgstr "上传PDF，DOCX或TXT文件"
+
+#: accounts/models.py:60
+msgid "Untitled Document"
+msgstr "未命名文档"
+
+#: accounts/models.py:65
+msgid "Upload Time"
+msgstr "上传时间"
+
+#: accounts/models.py:69
+msgid "User Document"
+msgstr "用户文档"
+
+#: accounts/models.py:70
+msgid "User Documents"
+msgstr "用户文档"
+
+#: accounts/views.py:17
+msgid "Invalid username or password"
+msgstr "用户名或密码错误"
+
+#: accounts/views.py:23
+msgid "Form data:"
+msgstr "表单数据"
+
+#: accounts/views.py:25
+msgid "Form validation passed"
+msgstr "表单验证通过"
+
+#: accounts/views.py:28
+msgid "Registration successful!"
+msgstr "注册成功"
+
+#: accounts/views.py:29
+msgid "User created and logged in"
+msgstr "用户创建成功并登录"
+
+#: accounts/views.py:32
+msgid "Form errors:"
+msgstr "表单错误"
+
+#: accounts/views.py:33
+msgid "Please correct the errors below"
+msgstr "请纠正以下错误"
+
+#: accounts/views.py:44
+msgid "Profile updated successfully"
+msgstr "更新成功"
+
+#: accounts/views.py:47
+msgid "Failed to update profile"
+msgstr "更新错误"
+
+#: accounts/views.py:66
+msgid "Document uploaded successfully"
+msgstr "文档上传成功"
+
+#: accounts/views.py:69
+msgid "File upload failed. Please check the format"
+msgstr "上传错误，请检查格式"
+
+#: accounts/views.py:75
+msgid "This is a test page for UI controls"
+msgstr "这是一个UI测试界面"
+
+#: myproject/settings/base.py:114
+msgid "English"
+msgstr "英语"
+
+#: myproject/settings/base.py:115
+msgid "Simplified Chinese"
+msgstr "简体中文"
+
+#: templates/accounts/login.html:6
+msgid "Log In"
+msgstr "登录"
+
+#: templates/accounts/login.html:12
+msgid "The username or password is incorrect"
+msgstr "用户名或密码错误"
+
+#: templates/accounts/login.html:26 templates/includes/header.html:9
+msgid "Log in"
+msgstr "登录"
+
+#: templates/accounts/login.html:30
+msgid "No account yet?"
+msgstr "还没有账号？"
+
+#: templates/accounts/login.html:31
+msgid "Register immediately"
+msgstr "立即注册"
+
+#: templates/accounts/profile.html:13
+msgid "User avatar"
+msgstr "用户头像"
+
+#: templates/accounts/profile.html:15
+msgid "Default avatar"
+msgstr "默认头像"
+
+#: templates/accounts/profile.html:21
+msgid "Personal website"
+msgstr "个人网站"
+
+#: templates/accounts/profile.html:25
+msgid "My Documents"
+msgstr "我的文档"
+
+#: templates/accounts/profile.html:27
+msgid "Upload a new document"
+msgstr "上传新文档"
+
+#: templates/accounts/profile.html:38
+msgid "There is no document for the time being"
+msgstr "当前暂无文档"
+
+#: templates/accounts/profile.html:42
+msgid "Edit profile"
+msgstr "编辑页面"
+
+#: templates/accounts/profile.html:46
+msgid "Update"
+msgstr "更新"
+
+#: templates/accounts/register.html:5
+msgid "Register An Account"
+msgstr "注册账号"
+
+#: templates/accounts/register.html:12
+#, python-format
+msgid ""
+"\n"
+"        There is 1 error in the form\n"
+"        "
+msgid_plural ""
+"\n"
+"        There are %(counter)s errors in the form\n"
+"        "
+msgstr[0] ""
+"\n"
+"        表单中有1处错误\n"
+"        "
+msgstr[1] ""
+"\n"
+"        表单中有%(counter)s处错误\n"
+"        "
+
+#: templates/accounts/register.html:38
+msgid "Register"
+msgstr "注册"
+
+#: templates/accounts/upload.html:5
+msgid "Upload the document"
+msgstr "上传文档"
+
+#: templates/accounts/upload.html:9
+msgid "Upload"
+msgstr "上传"
+
+#: templates/base.html:8
+msgid "Django Project Test Website"
+msgstr "Django项目测试网站"
+
+#: templates/base.html:28
+msgid "Log Out"
+msgstr "退出登录"
+
+#: templates/includes/header.html:4 templates/pages/home.html:5
+msgid "Home Page"
+msgstr "首页"
+
+#: templates/includes/header.html:5 templates/pages/about.html:4
+msgid "About"
+msgstr "关于"
+
+#: templates/includes/header.html:7
+msgid "Personal Page"
+msgstr "个人页面"
+
+#: templates/pages/about.html:7
+msgid "About The Project"
+msgstr "关于此项目"
+
+#: templates/pages/about.html:8
+msgid ""
+"This is a website developed with Django in the WSL environment as an exercise"
+msgstr "这是一个在WSL环境下开发的用于练习的Django项目"
+
+#: templates/pages/home.html:9
+msgid "Welcome to Django Home!"
+msgstr "欢迎来到Django首页！"
+
+#: templates/pages/home.html:12
+msgid "This is the home page of the Django project"
+msgstr "这是这个Django项目的首页"
+
+#: templates/registration/logged_out.html:5
+msgid "Login has been safely exited"
+msgstr "登录已安全退出"
+
+#: templates/registration/logged_out.html:6
+msgid "Log in again"
+msgstr "再次登录"

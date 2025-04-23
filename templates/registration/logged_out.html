@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
+
 {% block content %}
-<h2>已安全退出</h2>
-<a href="{% url 'login' %}">重新登录</a>
+<h2>{% trans "Login has been safely exited" %}</h2>
+<a href="{% url 'login' %}">{% trans "Log in again" %}</a>
 {% endblock %}

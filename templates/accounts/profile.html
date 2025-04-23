@@ -1,50 +1,48 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
+
 <head>
-    <!--引入css文件-->
-    <link href="{% static 'css/sytle.css' %}" rel="sytlesheet">
+    <!-- 静态文件无需翻译 -->
+    <link href="{% static 'css/sytle.css' %}" rel="stylesheet">
 </head>
 <div class="profile-container">
     <div class="avatar-section">
         {% if user.avatar %}
-        <img src="{{ user.avatar.url }}" 
-             alt="用户头像"
-             class="avatar"
-             loading="lazy">
+        <img src="{{ user.avatar.url }}" alt="{% trans 'User avatar' %}" {# 图片alt文本需翻译 #} class="avatar" loading="lazy">
         {% else %}
-        <img src="/static/images/default_avatar.png" 
-             alt="默认头像" 
-             class="avatar">
+        <img src="/static/images/default_avatar.png" alt="{% trans 'Default avatar' %}" class="avatar">
         {% endif %}
     </div>
     <div class="info-section">
-        <h2>{{ user.username }}</h2>
-        <p>{{ user.bio }}</p>
-        <a href="{{ user.website }}" target="_blank">个人页面</a>
+        <h2>{{ user.username }}</h2> {# 动态用户名无需翻译 #}
+        <p>{{ user.bio }}</p> {# 用户自定义内容无需翻译 #}
+        <a href="{{ user.website }}" target="_blank">{% trans "Personal website" %}</a>
     </div>
 </div>
 
-<h2>我的文档</h2>
-<a href="{% url 'upload_document' %}" class="btn btn-primary">上传新文档</a>
+<h2>{% trans "My Documents" %}</h2>
+<a href="{% url 'upload_document' %}" class="btn btn-primary">
+    {% trans "Upload a new document" %}
+</a>
 
 <ul class="document-list">
     {% for doc in documents %}
     <li>
-        <a href="{{ doc.document.url}}">{{ doc.title }}</a>
-        <small>({{ doc.uploaded_at|date:"Y-m-d" }})</small>
-        <span class="uuid">UUID: {{ doc.uuid }}</span>
+        <a href="{{ doc.document.url}}">{{ doc.title }}</a> {# 文档标题是用户输入内容 #}
+        <small>({{ doc.uploaded_at|date:"Y-m-d" }})</small> {# 日期格式自动本地化 #}
+        <span class="uuid">UUID: {{ doc.uuid }}</span> {# 技术标识不翻译 #}
     </li>
     {% empty %}
-    <p>暂无文档</p>
+    <p>{% trans "There is no document for the time being" %}</p>
     {% endfor %}
 </ul>
 
-<h3>编辑资料</h3>
+<h3>{% trans "Edit profile" %}</h3> {# 更准确的翻译上下文 #}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">更新</button>
+    {{ form.as_p }} {# 表单字段翻译在forms.py处理 #}
+    <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
 </form>
 {% endblock %}

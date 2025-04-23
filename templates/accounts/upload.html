@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2>上传文档</h2>
+<h2>{% trans "Upload the document" %}</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">上传</button>
+    {{ form.as_p }} {# 表单字段翻译在forms.py中定义 #}
+    <button type="submit" class="btn btn-primary">{% trans "Upload" %}</button>
 </form>
 {% endblock %}

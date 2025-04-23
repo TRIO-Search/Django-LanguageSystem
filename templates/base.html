@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+{% load static i18n %} {# 添加i18n标签库 #}
 
-{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'zh-cn' }}"> {# 动态语言标识 #}
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Site{% endblock %}</title>
+    <title>{% block title %}{% trans "Django Project Test Website" %}{% endblock %}</title>
     <style>
         nav {
             background: #f2f2f2;
@@ -18,15 +18,31 @@
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
 </head>
 
 <body>
     {% include 'includes/header.html' %}
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-link">退出登录</button>
+        <button type="submit" class="btn btn-link">
+            {% trans "Log Out" %} {# 按钮文本需翻译 #}
+        </button>
     </form>
+
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <select name="language" onchange="this.form.submit()">
+            {% get_available_languages as LANGUAGES %}
+            {% get_current_language as CURRENT_LANG %}
+            {% for code, name in LANGUAGES %}
+            <option value="{{ code }}" {% if code == CURRENT_LANG %}selected{% endif %}>
+                {{ name }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+
     <div class="container">
         {% block content %}{% endblock %}
     </div>
