@@ -457,9 +457,9 @@ python manage.py compilemessages \--ignore=venv
 关键是传递 Accept-Language 头。
 ```
 location / {  
-    \# ... 其他 proxy 设置 ...  
-    proxy\_set\_header Accept-Language $http\_accept\_language; \# 传递浏览器语言偏好  
-    proxy\_pass http://unix:/path/to/your/project/myproject.sock; \# 根据实际情况修改 socket 路径  
+    # ... 其他 proxy 设置 ...  
+    proxy_set_header Accept-Language $http_accept_language; # 传递浏览器语言偏好  
+    proxy_pass http://unix:/path/to/your/project/myproject.sock; # 根据实际情况修改 socket 路径  
 }
 ```
 
