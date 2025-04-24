@@ -23,6 +23,7 @@
 
 Ubuntu/WSL  
 GNU gettext 工具集，这是Django国际化(i18n)的底层依赖，若项目要部署在服务器上则需要在服务器也下载此工具集 
+
 使用`sudo apt-get install gettext`下载gettext
 
 示例Django项目所用版本为5.2 (请根据你的项目调整)  
@@ -57,7 +58,10 @@ my-project/               # 项目根目录
 
 ### **一. 基础配置 (myproject/settings/base.py)**
 
-进行语言切换开发必须的基础配置，包括启用 `i18n`、设置`默认语言`、定义 `LOCALE_PATHS` 和添加 `LocaleMiddleware`。下为示例，注释内容为功能说明。
+进行语言切换开发必须的基础配置，包括启用 `i18n`、设置`默认语言`、定义 `LOCALE_PATHS` 和添加 `LocaleMiddleware`。
+
+下为示例，注释内容为功能说明。
+
 或可查看本项目代码➡️ **查看 myproject/settings/base.py 代码**: [my-project/myproject/settings/base.py](https://github.com/F16TH/my-project/tree/main/myproject/settings/base.py)
 
 ```python
@@ -304,14 +308,14 @@ urlpatterns = [
 {% get_available_languages as LANGUAGES %}
 ```
 * 作用：
-1. 使用 Django 的 `{% get_available_languages %}` 模板标签获取所有可用的语言列表。
-2. `LANGUAGES` 是一个包含语言代码和名称的列表，在前面对 Django 的基础配置中已经设置好了。
+    1. 使用 Django 的 `{% get_available_languages %}` 模板标签获取所有可用的语言列表。
+    2. `LANGUAGES` 是一个包含语言代码和名称的列表，在前面对 Django 的基础配置中已经设置好了。
 ```
 {% get_current_language as CURRENT_LANG %}
 ```
 * 作用：
-1. 使用 Django 的 `{% get_current_language %}` 模板标签获取当前的语言代码。
-2. `CURRENT_LANG` 是当前选择的语言代码。
+    1. 使用 Django 的 `{% get_current_language %}` 模板标签获取当前的语言代码。
+    2. `CURRENT_LANG` 是当前选择的语言代码。
 ```
 {% for code, name in LANGUAGES %}
 <option value="{{ code }}" {% if code == CURRENT_LANG %}selected{% endif %}>
@@ -322,13 +326,13 @@ urlpatterns = [
 * 循环：
     遍历 LANGUAGES 列表中的每个语言项。
 * 选项标签 (`<option>`)
-    `value` 属性：
+    * `value` 属性：
         `{{ code }}`：语言代码（例如 `en` 或 `zh-hans`）。
-    `selected` 属性：
+    * `selected` 属性：
         `{% if code == CURRENT_LANG %}selected{% endif %}`：如果当前语言代码与选项中的语言代码匹配，则选中该选项。
-    显示文本：
+    * 显示文本：
         `{{ name }}`：语言名称（例如 `English` 或 `简体中文`）。
-##### **工作流程**
+#### **工作流程**
 1. 用户选择语言：
     用户在下拉菜单中选择一种语言（例如 `简体中文`）。
 2. 自动提交表单：
@@ -348,15 +352,17 @@ urlpatterns = [
 
 **重要:** 在每个需要翻译的模板文件顶部添加 `{% load i18n %}`以确保翻译标签可被正常识别，否则会报错。
 
-**a. 简单翻译 (trans)**
+**a. 简单翻译 (`trans`)**
 ```
 {% load i18n %}
+
 <h1>My Profile</h1>    <!-- 一般未被标记的字符串 -->
 <h1>{% trans "My Profile" %}</h1>  <!-- 使用{% trans "..." %}标记需要翻译的字符串 -->
+
 <p>{% trans "This text will be translated." %}</p>  
 <button type="submit">{% trans "Save Changes" %}</button>
 ```
-**b. 带变量的翻译 (trans 或 blocktrans)**
+**b. 带变量的翻译 (`trans` 或 `blocktrans`)**
 ```
 {% load i18n %}
 
@@ -369,7 +375,7 @@ urlpatterns = [
 {# blocktrans 示例：包含 HTML #}  
 {% blocktrans %}You can <a href="/profile/">edit your profile</a>.{% endblocktrans %}
 ```
-**c. 块翻译 (blocktrans)** (用于多行文本或包含模板标签/过滤器)
+**c. 块翻译 (`blocktrans`)** (用于多行文本或包含模板标签/过滤器)
 ```
 {% load i18n %}
 
@@ -384,7 +390,7 @@ This is the second line.
 There are {{ user_count }} active users.  
 {% endblocktrans %}
 ```
-**d. 复数形式 (blocktrans 与 plural)**
+**d. 复数形式 (`blocktrans` 与 `plural`)**
 ```
 {% load i18n %}
 
@@ -400,7 +406,7 @@ Your cart has {{ items_count }} item. Total: ${{ amount }}.
 Your cart has {{ items_count }} items. Total: ${{ amount }}.  
 {% endblocktrans %}
 ```
-**e. 添加翻译上下文 (pgettext)** (当同一个词在不同语境下有不同翻译时)
+**e. 添加翻译上下文 (`pgettext`)** (当同一个词在不同语境下有不同翻译时)
 ```
 {% load i18n %}
 
@@ -412,7 +418,7 @@ Your cart has {{ items_count }} items. Total: ${{ amount }}.
 ```
 **f. 特殊注意事项**
 
-* **不要在 HTML 属性值内直接使用 trans 标签** (虽然有时能工作，但不推荐，易出错)。  
+* **不要在 HTML 属性值内直接使用 `trans` 标签** (虽然有时能工作，但不推荐，易出错)。  
   * **错误:** `<input placeholder="{% trans 'Search' %}">  `
   * **正确 (方法一: 使用 as):**
   * ```
@@ -420,10 +426,10 @@ Your cart has {{ items_count }} items. Total: ${{ amount }}.
     <input placeholder="{{ search_placeholder }}">
     ```
   * **正确 (方法二: Python 中翻译):** 在视图或表单中翻译，然后传递给模板。  
-* **模板过滤器干扰:** 避免在 trans 标签内直接使用过滤器。  
+* **模板过滤器干扰:** 避免在 `trans` 标签内直接使用过滤器。  
   * **错误:** `{% trans "Page"|title %}`  
   * **正确:** `{% filter title %}{% trans "page" %}{% endfilter %} ` 
-* **换行符:** trans 或 blocktrans 中的换行符会保留在 .po 文件和最终输出中。
+* **换行符:** `trans` 或 `blocktrans` 中的换行符会保留在 .po 文件和最终输出中。
 
 ➡️ **查看 templates/accounts/profile.html 示例代码**: [my-project/tree/main/templates/accounts/profile.html](https://github.com/F16TH/my-project/tree/main/templates/accounts/profile.html)
 
@@ -564,13 +570,11 @@ def my_view(request):
 
 ### **Nginx 配置**
 
-关键是传递 Accept-Language 头。
+关键是传递 `Accept-Language` 头，配置这个是为了确保 Django 能够正确地接收到客户端的首选语言信息，从而能够根据用户的浏览器设置自动切换或推荐语言，让 Django 的语言检测和切换逻辑正常工作
 ```
 location / {  
     # ... 其他 proxy 设置 ...  
     proxy_set_header Accept-Language $http_accept_language; # 传递浏览器语言偏好
-    #配置这个是为了确保 Django 能够正确地接收到客户端的首选语言信息，从而能够根据用户的浏览器设置自动切换或推荐语言，让 Django 的语言检测和切换逻辑正常工作
-
     proxy_pass http://unix:/path/to/your/project/myproject.sock; # 根据实际情况修改 socket 路径  
 }
 ```
@@ -578,17 +582,17 @@ location / {
 
 通常不需要特殊配置，确保 Gunicorn 能加载 Django 配置即可。
 
-在配置好Nginx和Gunicorn之后将二者重启应用即可。
+在配置好 Nginx 和 Gunicorn 之后将二者重启应用即可。
 ## **维护指南**
 
-* **定期更新翻译:** 修改文本后，运行 makemessages -> 编辑 .po -> compilemessages。  
+* **定期更新翻译:** 使用`django-admin makemessages -l zh_Hans --ignore="venv/*" --no-obsolete`增量更新翻译文件再用`python manage.py compilemessages `编译。  
 * **代码审查:** 检查翻译标记的使用。  
 * **测试:** 在不同语言下测试。  
 * **备份:** 备份 locale 目录 (尤其是 .po 文件)。
 
 ## **常见问题排查**
 
-* **翻译不生效:** 检查 settings.py, MIDDLEWARE, LOCALE_PATHS, .po 文件编辑和 .mo 文件编译，重启服务器，清缓存/Cookie。  
-* **makemessages 找不到字符串:** 检查标记是否正确，命令运行目录，--ignore 参数。  
+* **翻译不生效:** 检查 `settings.py`, `MIDDLEWARE`, `LOCALE_PATHS`, .po 文件编辑和 .mo 文件编译，重启服务器，清缓存/Cookie。  
+* **makemessages 找不到字符串:** 检查标记是否正确，命令运行目录，`--ignore` 参数。  
 * **.po 文件语法错误:** 使用 `msgfmt -c` 检查。  
 * **部分内容未翻译:** 检查是否所有相关文本都已标记。
