@@ -23,13 +23,15 @@
 ### **系统依赖**
 
 \# Ubuntu/WSL  
-\# GNU gettext 工具集，这是Django国际化(i18n)的底层依赖，若项目要部署在服务器上则需要在服务器也下载此工具集  
-sudo apt-get install gettext  
+\# GNU gettext 工具集，这是Django国际化(i18n)的底层依赖，若项目要部署在服务器上则需要在服务器也下载此工具集 
+```
+sudo apt-get install gettext
+```  
 \# 示例Django项目所用版本为5.2 (请根据你的项目调整)  
 python \-m pip install django==5.2
 
 ### **项目结构（示例）**
-
+```
 my-project/               \# 项目根目录 (根据你的实际名称)  
 ├── locale/               \# 翻译文件目录  
 │   └── zh\_Hans/          \# 简体中文 (或其他语言代码, 如 en)  
@@ -50,15 +52,15 @@ my-project/               \# 项目根目录 (根据你的实际名称)
 │       └── base.py       \# 基础配置  
 ├── manage.py  
 └── ... (其他文件)
-
+```
 ## **核心实现步骤**
 
 ### **一. 基础配置 (myproject/settings/base.py)**
 
-进行语言切换开发必须的基础配置，包括启用 i18n、设置语言、定义 LOCALE\_PATHS 和添加 LocaleMiddleware。下为示例
+进行语言切换开发必须的基础配置，包括启用 i18n、设置语言、定义 LOCALE\_PATHS 和添加 LocaleMiddleware。下为示例，或可查看本项目代码➡️ **查看 myproject/settings/base.py 代码**: [my-project/myproject/settings/base.py](https://github.com/F16TH/my-project/tree/main/myproject/settings/base.py)
 
 ```python
-# settings.py 或 settings/base.py
+# settings.py 或 settings/base.py，一般是settings.py
 
 import os  
 from django.utils.translation import gettext_lazy as _ # 翻译所需
@@ -95,11 +97,10 @@ MIDDLEWARE = [
 ]
 ```
 
-➡️ **查看 myproject/settings/base.py 代码**: [my-project/myproject/settings/base.py](https://github.com/F16TH/my-project/tree/main/myproject/settings/base.py)
 
 ### **二. 语言切换视图 (accounts/views.py)**
 
-处理用户语言选择、设置 session 和 cookie，并重定向回原页面的视图函数 (set\_language)。以下为示例，或者可查看本项目内函数
+处理用户语言选择、设置 session 和 cookie，并重定向回原页面的视图函数 (set\_language)。以下为示例，或者可查看本项目代码➡️ **查看 accounts/views.py 代码**: [my-project/accounts/views.py](https://github.com/F16TH/my-project/tree/main/accounts/views.py)
 
 ```python
 # accounts/views.py (或项目内任何合适的位置)
@@ -152,11 +153,11 @@ def set_language(request):
         return HttpResponseRedirect(next_url)
 ```
 
-➡️ **查看 accounts/views.py 代码**: [my-project/accounts/views.py](https://github.com/F16TH/my-project/tree/main/accounts/views.py)
 
 ### **三. 语言切换 URL 配置 (accounts/urls.py)**
 
-将 set\_language 视图函数连接到特定的 URL 路径。以下为示例，或者可查看本项目代码
+将 set\_language 视图函数连接到特定的 URL 路径。以下为示例，或者可查看本项目代码➡️ 查看 accounts/urls.py 代码: [my-project/accounts/urls.py](https://github.com/F16TH/my-project/tree/main/accounts/urls.py)  
+(注意：你还需要在项目主 urls.py 中 include 这个应用的 URL 配置)
 
 在项目的主 urls.py 或应用的 urls.py 中添加路径：
 
@@ -186,12 +187,10 @@ urlpatterns = [
 # 模板中引用变为 {% url 'accounts:set_language' %}
 ```
 
-➡️ 查看 accounts/urls.py 代码: [my-project/accounts/urls.py](https://github.com/F16TH/my-project/tree/main/accounts/urls.py)  
-(注意：你还需要在项目主 urls.py 中 include 这个应用的 URL 配置)
 
 ### **四. 模板语言切换控件 (templates/base.html)**
 
-在 HTML 基础模板中添加一个表单，允许用户选择语言。该表单会提交到 set\_language 视图。以下为示例，或者可查看本项目代码
+在 HTML 基础模板中添加一个表单，允许用户选择语言。该表单会提交到 set\_language 视图。以下为示例，或者可查看本项目代码➡️ **查看 templates/base.html 代码**: [my-project/templates/base.html](https://github.com/F16TH/my-project/tree/main/templates/base.html)
 
 ```html
 {# templates/base.html #}  
@@ -241,7 +240,6 @@ urlpatterns = [
 </html>
 ```
 
-➡️ **查看 templates/base.html 代码**: [my-project/templates/base.html](https://github.com/F16TH/my-project/tree/main/templates/base.html)
 
 ### **五. 标记需要翻译的字符串**
 
@@ -350,6 +348,10 @@ from django.utils.translation import ngettext, ngettext\_lazy
 **b. 标记字符串**
 
 以下是标记示例，若需要可用的代码请查看本项目内代码
+➡️ 查看 accounts/models.py 示例代码: [my-project/accounts/models.py](https://github.com/F16TH/my-project/tree/main/accounts/models.py)  
+➡️ 查看 accounts/forms.py 示例代码: [my-projcet/accounts/forms.py](https://github.com/F16TH/my-project/tree/main/accounts/forms.py)
+➡️ 查看 accounts/viewss.py 示例代码: [my-projcet/accounts/views.py](https://github.com/F16TH/my-project/tree/main/accounts/views.py)
+
 ```python
 # models.py  
 from django.db import models  
@@ -419,9 +421,6 @@ def my_view(request):
 * views.py: 使用 messages 框架发送的消息，传递给模板的动态字符串。  
 * admin.py: 列表显示的列名 (list\_display)，过滤器标题 (list\_filter) 等 (如果需要自定义)。
 
-
-➡️ 查看 accounts/models.py 示例代码: [my-project/accounts/models.py](https://github.com/F16TH/my-project/tree/main/accounts/models.py)  
-➡️ 查看 accounts/forms.py 示例代码: [my-projcet/accounts/forms.py](https://github.com/F16TH/my-project/tree/main/accounts/forms.py)
 
 ### **六. 生成和编译翻译文件**
 
