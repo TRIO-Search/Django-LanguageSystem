@@ -2,7 +2,7 @@
 
 ## **目录**
 
-* [功能概述](功能概述)  
+* [功能概述](#功能概述)  
 * [开发环境配置](#开发环境配置)  
 * [核心实现步骤](#核心实现步骤)  
 * [生产环境部署](#生产环境部署)  
@@ -455,15 +455,13 @@ python manage.py compilemessages \--ignore=venv
 ### **Nginx 配置**
 
 关键是传递 Accept-Language 头。
-
+```
 location / {  
     \# ... 其他 proxy 设置 ...  
     proxy\_set\_header Accept-Language $http\_accept\_language; \# 传递浏览器语言偏好  
     proxy\_pass http://unix:/path/to/your/project/myproject.sock; \# 根据实际情况修改 socket 路径  
 }
-
-➡️ 查看示例 Nginx 配置文件 (deploy/nginx.conf): YOUR\_GITHUB\_REPO\_URL/blob/main/deploy/nginx.conf  
-(这是一个示例路径，请根据你的项目调整或创建)
+```
 
 ### **Gunicorn 配置**
 
@@ -472,8 +470,6 @@ location / {
 \# 示例 Gunicorn 启动命令  
 gunicorn myproject.wsgi:application \--bind unix:/path/to/your/project/myproject.sock ... \# 根据实际情况修改
 
-➡️ 查看示例 Gunicorn 启动脚本 (deploy/gunicorn\_start.sh): YOUR\_GITHUB\_REPO\_URL/blob/main/deploy/gunicorn\_start.sh  
-(这是一个示例路径，请根据你的项目调整或创建)
 
 ## **维护指南**
 
