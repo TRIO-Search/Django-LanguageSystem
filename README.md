@@ -343,12 +343,13 @@ from django.utils.translation import pgettext, pgettext\_lazy
 from django.utils.translation import ngettext, ngettext\_lazy
 
 * gettext / \_: 立即翻译 (用于视图、表单处理等运行时)。\_ 是 gettext\_lazy 的常用别名。  
-* gettext\_lazy / \_: 惰性翻译 (用于模型字段、表单字段标签、URL 名称等在 Django 加载时就需要定义，但翻译需要延迟到请求时)。**这是最常用的。**  
+* gettext\_lazy / \_: 惰性翻译 (用于模型字段、表单字段标签、URL 名称等在 Django 加载时就需要定义，但翻译需要延迟到请求时)。**这是最常用的，如无其他特殊需要，只导入这个也行。**  
 * pgettext / pgettext\_lazy: 带上下文的翻译。  
 * ngettext / ngettext\_lazy: 复数形式翻译。
 
 **b. 标记字符串**
 
+以下是标记示例，若需要可用的代码请查看本项目内代码
 ```python
 # models.py  
 from django.db import models  
