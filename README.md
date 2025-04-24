@@ -1,15 +1,15 @@
 # **Django i18n 语言切换功能开发文档**
 
-**注意:** 本 README 中的代码示例已链接到项目仓库中的实际文件。
+**注意:** 本 README 中的代码示例已链接到项目仓库中的实际文件。请将 YOUR\_GITHUB\_REPO\_URL 替换为您实际的仓库地址。
 
 ## **目录**
 
-* [功能概述](#bookmark=id.b7ox2ho5do4l)  
-* [开发环境配置](#bookmark=id.5uy33g9tmodo)  
-* [核心实现步骤](#bookmark=id.qcjnudtde25z)  
-* [生产环境部署](#bookmark=id.4bnhibix0heg)  
-* [维护指南](#bookmark=id.oytxcdo0cdzx)  
-* [常见问题排查](#bookmark=id.zed619w7xvpq)
+* [功能概述](#bookmark=id.44z6lue823m0)  
+* [开发环境配置](#bookmark=id.2w0p24vcu9e0)  
+* [核心实现步骤](#bookmark=id.qg3q2sesdvh1)  
+* [生产环境部署](#bookmark=id.o2kox1sawso4)  
+* [维护指南](#bookmark=id.scduzjoncstr)  
+* [常见问题排查](#bookmark=id.108eoxhisz4o)
 
 ## **功能概述**
 
@@ -59,26 +59,26 @@ my-project/               \# 项目根目录 (根据你的实际名称)
 
 进行语言切换开发必须的基础配置，包括启用 i18n、设置语言、定义 LOCALE\_PATHS 和添加 LocaleMiddleware。
 
-➡️ **查看 myproject/settings/base.py 代码**
+➡️ **查看 myproject/settings/base.py 代码**: [YOUR\_GITHUB\_REPO\_URL/blob/main/myproject/settings/base.py]([http://docs.google.com/YOUR_GITHUB_REPO_URL/blob/main](https://github.com/F16TH/my-project/tree/main/myproject/settings/base.py)
 
 ### **二. 语言切换视图 (accounts/views.py)**
 
 处理用户语言选择、设置 session 和 cookie，并重定向回原页面的视图函数 (set\_language)。
 
-➡️ **查看 accounts/views.py 代码**
+➡️ **查看 accounts/views.py 代码**: [YOUR\_GITHUB\_REPO\_URL/blob/main/accounts/views.py](https://github.com/F16TH/my-project/tree/main/accounts/views.py)
 
 ### **三. 语言切换 URL 配置 (accounts/urls.py)**
 
 将 set\_language 视图函数连接到特定的 URL 路径。
 
-➡️ 查看 accounts/urls.py 代码  
+➡️ 查看 accounts/urls.py 代码: YOUR\_GITHUB\_REPO\_URL/blob/main/accounts/urls.py  
 (注意：你还需要在项目主 urls.py 中 include 这个应用的 URL 配置)
 
 ### **四. 模板语言切换控件 (templates/base.html)**
 
 在 HTML 基础模板中添加一个表单，允许用户选择语言。该表单会提交到 set\_language 视图。
 
-➡️ **查看 templates/base.html 代码**
+➡️ **查看 templates/base.html 代码**: [YOUR\_GITHUB\_REPO\_URL/blob/main/templates/base.html](https://github.com/F16TH/my-project/tree/main/templates/base.html)
 
 ### **五. 标记需要翻译的字符串**
 
@@ -86,14 +86,14 @@ my-project/               \# 项目根目录 (根据你的实际名称)
 
 使用 {% load i18n %} 加载标签库，并使用 {% trans "..." %} 或 {% blocktrans %} ... {% endblocktrans %} 标记需要翻译的文本。
 
-➡️ **查看 templates/accounts/profile.html 示例代码**
+➡️ **查看 templates/accounts/profile.html 示例代码**: [https://github.com/F16TH/my-project/tree/main/templates/accounts/profile.html](https://github.com/F16TH/my-project/tree/main/templates/accounts/profile.html)
 
 #### **2\. Python 代码 (.py 文件)**
 
 导入 gettext\_lazy as \_，并使用 \_("...") 标记模型字段、表单标签、视图消息等需要翻译的字符串。
 
-➡️ 查看 accounts/models.py 示例代码  
-➡️ 查看 accounts/forms.py 示例代码
+➡️ 查看 accounts/models.py 示例代码: https://github.com/F16TH/my-project/tree/main/accounts/models.py  
+➡️ 查看 accounts/forms.py 示例代码: https://github.com/F16TH/my-project/tree/main/accounts/forms.py
 
 ### **六. 生成和编译翻译文件**
 
@@ -111,7 +111,7 @@ python manage.py makemessages \-a \--ignore=venv
 
 手动编辑 locale/\<lang\>/LC\_MESSAGES/django.po 文件，在 msgstr 行填入翻译。
 
-➡️ **查看 locale/zh\_Hans/LC\_MESSAGES/django.po 示例文件**
+➡️ **查看 locale/zh\_Hans/LC\_MESSAGES/django.po 示例文件**: [YOUR\_GITHUB\_REPO\_URL/blob/main/locale/zh\_Hans/LC\_MESSAGES/django.po](https://github.com/F16TH/my-project/tree/main/locale/zh_Hans/LC_MESSAGES/django.po)
 
 #### **3\. 编译翻译文件 (.mo)**
 
@@ -135,7 +135,7 @@ location / {
     proxy\_pass http://unix:/path/to/your/project/myproject.sock; \# 根据实际情况修改 socket 路径  
 }
 
-➡️ 查看示例 Nginx 配置文件 (deploy/nginx.conf)  
+➡️ 查看示例 Nginx 配置文件 (deploy/nginx.conf): YOUR\_GITHUB\_REPO\_URL/blob/main/deploy/nginx.conf  
 (这是一个示例路径，请根据你的项目调整或创建)
 
 ### **Gunicorn 配置**
@@ -145,7 +145,7 @@ location / {
 \# 示例 Gunicorn 启动命令  
 gunicorn myproject.wsgi:application \--bind unix:/path/to/your/project/myproject.sock ... \# 根据实际情况修改
 
-➡️ 查看示例 Gunicorn 启动脚本 (deploy/gunicorn\_start.sh)  
+➡️ 查看示例 Gunicorn 启动脚本 (deploy/gunicorn\_start.sh): YOUR\_GITHUB\_REPO\_URL/blob/main/deploy/gunicorn\_start.sh  
 (这是一个示例路径，请根据你的项目调整或创建)
 
 ## **维护指南**
