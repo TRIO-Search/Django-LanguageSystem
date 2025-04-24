@@ -2,12 +2,12 @@
 
 ## **目录**
 
-* [功能概述](#bookmark=id.44z6lue823m0)  
-* [开发环境配置](#bookmark=id.2w0p24vcu9e0)  
-* [核心实现步骤](#bookmark=id.qg3q2sesdvh1)  
-* [生产环境部署](#bookmark=id.o2kox1sawso4)  
-* [维护指南](#bookmark=id.scduzjoncstr)  
-* [常见问题排查](#bookmark=id.108eoxhisz4o)
+* [功能概述](#功能概述)  
+* [开发环境配置](#开发环境配置)  
+* [核心实现步骤](#核心实现步骤)  
+* [生产环境部署](#生产环境部署)  
+* [维护指南](#维护指南)  
+* [常见问题排查](#常见问题排查)
 
 ## **功能概述**
 
