@@ -22,14 +22,17 @@
 
 <body>
     {% include 'includes/header.html' %}
+
+    {% if user.is_authenticated %}
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-link">
             {% trans "Log Out" %} {# 按钮文本需翻译 #}
         </button>
     </form>
+    {% endif %}
 
-    <form action="{% url 'set_language' %}" method="post">
+    <form action="{% url 'set_language' %}" method="post">  {# 切换语言的控件 #}
         {% csrf_token %}
         <input name="next" type="hidden" value="{{ request.get_full_path }}">
         <select name="language" onchange="this.form.submit()">

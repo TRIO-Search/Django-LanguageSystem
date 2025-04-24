@@ -46,7 +46,8 @@ class ProfileForm(forms.ModelForm):
         }
         help_texts = {
             'website': _("Your personal or professional website (e.g. https://example.com)"),
-            'bio': _("Tell others about yourself")
+            'bio': _("Tell others about yourself"),
+            'avatar': _("Upload a new profile picture"),
         }
 
 class DocumentUploadForm(forms.ModelForm):

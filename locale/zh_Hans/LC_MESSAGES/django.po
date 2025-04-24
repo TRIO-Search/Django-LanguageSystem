@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 11:34+0800\n"
+"POT-Creation-Date: 2025-04-24 11:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,7 @@ msgstr "两个密码不匹配"
 
 #: accounts/forms.py:43
 msgid "Biography"
-msgstr "个人页面"
+msgstr "个人简介"
 
 #: accounts/forms.py:44
 msgid "Profile Picture"
@@ -74,31 +74,35 @@ msgstr "你的个人或官方网站（例如https://example.com）"
 msgid "Tell others about yourself"
 msgstr "向他人介绍你自己"
 
-#: accounts/forms.py:57
+#: accounts/forms.py:50
+msgid "Upload a new profile picture"
+msgstr "上传新的图片文件"
+
+#: accounts/forms.py:58
 msgid "File"
 msgstr "文件"
 
-#: accounts/forms.py:58 accounts/models.py:61
+#: accounts/forms.py:59 accounts/models.py:61
 msgid "Document Title"
 msgstr "文档标题"
 
-#: accounts/forms.py:61
+#: accounts/forms.py:62
 msgid "Allowed formats: PDF, DOCX, TXT (Max 10MB)"
 msgstr "允许上传PDF，DOCX，TXT（最大10M）"
 
-#: accounts/forms.py:62
+#: accounts/forms.py:63
 msgid "Give your document a descriptive name"
 msgstr "给你的文档一个名字"
 
-#: accounts/forms.py:66
+#: accounts/forms.py:67
 msgid "Invalid file format"
 msgstr "无效的文件格式"
 
-#: accounts/forms.py:67
+#: accounts/forms.py:68
 msgid "No file was selected"
 msgstr "没有文件被选中"
 
-#: accounts/forms.py:73
+#: accounts/forms.py:74
 msgid "My Document"
 msgstr "我的文档"
 
@@ -127,7 +131,8 @@ msgid "Your personal or professional website"
 msgstr "你的个人或官方网站"
 
 #: accounts/models.py:23
-msgid "The groups this user belongs to. A user will get all permissions granted."
+msgid ""
+"The groups this user belongs to. A user will get all permissions granted."
 msgstr "该用户所属的组，该用户将获得授予的所有权限"
 
 #: accounts/models.py:24
@@ -182,51 +187,51 @@ msgstr "用户文档"
 msgid "User Documents"
 msgstr "用户文档"
 
-#: accounts/views.py:17
+#: accounts/views.py:22
 msgid "Invalid username or password"
 msgstr "用户名或密码错误"
 
-#: accounts/views.py:23
+#: accounts/views.py:28
 msgid "Form data:"
 msgstr "表单数据"
 
-#: accounts/views.py:25
+#: accounts/views.py:30
 msgid "Form validation passed"
 msgstr "表单验证通过"
 
-#: accounts/views.py:28
+#: accounts/views.py:33
 msgid "Registration successful!"
 msgstr "注册成功"
 
-#: accounts/views.py:29
+#: accounts/views.py:34
 msgid "User created and logged in"
 msgstr "用户创建成功并登录"
 
-#: accounts/views.py:32
+#: accounts/views.py:37
 msgid "Form errors:"
 msgstr "表单错误"
 
-#: accounts/views.py:33
+#: accounts/views.py:38
 msgid "Please correct the errors below"
 msgstr "请纠正以下错误"
 
-#: accounts/views.py:44
+#: accounts/views.py:49
 msgid "Profile updated successfully"
 msgstr "更新成功"
 
-#: accounts/views.py:47
+#: accounts/views.py:52
 msgid "Failed to update profile"
 msgstr "更新错误"
 
-#: accounts/views.py:66
+#: accounts/views.py:71
 msgid "Document uploaded successfully"
 msgstr "文档上传成功"
 
-#: accounts/views.py:69
+#: accounts/views.py:74
 msgid "File upload failed. Please check the format"
 msgstr "上传错误，请检查格式"
 
-#: accounts/views.py:75
+#: accounts/views.py:80
 msgid "This is a test page for UI controls"
 msgstr "这是一个UI测试界面"
 
@@ -286,7 +291,7 @@ msgstr "当前暂无文档"
 msgid "Edit profile"
 msgstr "编辑页面"
 
-#: templates/accounts/profile.html:46
+#: templates/accounts/profile.html:63
 msgid "Update"
 msgstr "更新"
 
@@ -329,7 +334,7 @@ msgstr "上传"
 msgid "Django Project Test Website"
 msgstr "Django项目测试网站"
 
-#: templates/base.html:28
+#: templates/base.html:30
 msgid "Log Out"
 msgstr "退出登录"
 
