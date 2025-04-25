@@ -26,6 +26,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('about/', views.about_view, name='about'),
     path('accounts/', include('accounts.urls')),
+    path(settings.TARGET_URL + '/i18n/',include('django.conf.urls.i18n'))
 ]
 
 # 仅开发环境添加媒体文件服务
