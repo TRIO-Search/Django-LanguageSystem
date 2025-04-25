@@ -75,7 +75,7 @@ from django.utils.translation import gettext_lazy as _ # 翻译所需
 BASE_DIR = Path(__file__).resolve().parent.parent.parent     #.parent用于回溯到上级目录
 
 # 启用 i18n 和 l10n  
-USE_I18N = True #USE_I18N 设置为 True 启用 Django 的国际化功能，允许你使用翻译系统来处理多语言内容。
+USE_I18N = True # USE_I18N 设置为 True 启用 Django 的国际化功能，允许你使用翻译系统来处理多语言内容。
 USE_L10N = True # 通常与 USE_I18N 一起启用，用于格式化日期、数字等
 
 # 默认语言  
@@ -93,6 +93,9 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'), # 指向包含各语言翻译文件的 'locale' 目录，集中存放翻译文件便于维护
 ]
 
+# 生产环境下Django的挂载点，将你django挂载到的子目录写入这一项，比如挂载到demo.com/user，则写入TARGET_URL = 'user'
+TARGET_URL = ''
+
 # 中间件配置  
 MIDDLEWARE = [  
     # ... 其他中间件  
@@ -104,17 +107,21 @@ MIDDLEWARE = [
 ```
 
 
-### **二. 语言切换视图 (accounts/views.py)**
+### **二. 语言切换视图**
+
 #### **为什么要有`set_language`视图函数？** 
+
 `set_language` 视图在 Django 项目中扮演着关键角色，用于处理用户选择的语言切换。其主要作用包括：
 1. 获取并验证用户选择的语言代码。
 2. 设置会话和 Cookie 中的语言，确保语言设置持久化。
 3. 激活当前语言，确保当前请求中的翻译文本使用该语言。
 4. 重定向用户，将用户重定向到指定的页面，并应用新的语言设置。
-   
+
 如果不设置 `set_language` 视图，项目将无法支持动态语言切换，用户语言设置无法持久化，用户体验会显著下降，并且可能引入安全风险。
 
-以下为代码示例，或者可查看本项目代码➡️ **查看 accounts/views.py 代码**: [my-project/accounts/views.py](https://github.com/F16TH/my-project/tree/main/accounts/views.py#L83-L102)
+**Django官方提供了`set_language`视图函数，本项目也是使用官方的`set_language`，在 [三. 语言切换 URL 配置 (myproject/urls.py)](#三-语言切换-url-配置-myprojecturlspy) 之中会告诉你如何将 URL 链接到官方的`set_language`**
+
+**以下代码只是作为示例参考，更推荐使用官方的`set_language`视图函数**
 
 ```python
 # accounts/views.py (或项目内任何合适的位置)
@@ -148,15 +155,15 @@ def set_language(request):
 ```
 lang_code = request.POST.get('language')
 ```
-* 作用：从 POST 请求中获取用户选择的语言代码（例如 en 或 zh-hans）。
+* 作用：从 POST 请求中获取用户选择的语言代码（例如 `en` 或 `zh-hans`）。
 * 来源：通常来自前端表单中的 `<input type="hidden" name="language" value="en">` 或 `<select name="language">`。
 ```
 next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or '/'
 ```
 * 作用：确定用户在语言切换后应该重定向到哪个页面。
 * 优先级：
-1. `request.POST.get('next')`：从 POST 数据中获取 next 参数。
-2. `request.META.get('HTTP_REFERER')`：如果没有 next 参数，则使用 HTTP Referer 头。
+1. `request.POST.get('next')`：从 POST 数据中获取 `next` 参数。
+2. `request.META.get('HTTP_REFERER')`：如果没有 `next` 参数，则使用 `HTTP Referer` 头。
 3. `'/'`：如果以上都没有，则重定向到根路径。
 ```
 if lang_code in dict(settings.LANGUAGES).keys():
@@ -176,7 +183,7 @@ activate(lang_code)
 ```
 response = HttpResponseRedirect(next_url)
 ```
-* 作用：创建一个重定向响应，将用户重定向到 next_url。
+* 作用：创建一个重定向响应，将用户重定向到 `next_url`。
 * 重定向：用户在语言切换后会看到相应语言的页面。
 ```
 response.set_cookie(
@@ -201,10 +208,10 @@ return response
 ```
 return HttpResponseRedirect(next_url)
 ```
-* 作用：如果用户选择的语言代码无效，则直接重定向到 next_url，不进行任何语言设置。
+* 作用：如果用户选择的语言代码无效，则直接重定向到 `next_url`，不进行任何语言设置。
 * 容错性：确保即使用户提交了无效的语言代码，也不会导致错误，而是安全地重定向。
 
-### **三. 语言切换 URL 配置 (accounts/urls.py)**
+### **三. 语言切换 URL 配置 (myproject/urls.py)**
 
 #### **为什么将 `set_language` 视图函数连接到特定的 `URL` 路径。**
 1. 前端表单提交目标：
@@ -224,45 +231,45 @@ return HttpResponseRedirect(next_url)
 * 调试方便：在开发和调试过程中，可以通过 URL 路径快速定位和解决问题。
 
 以下为代码示例。
-或者可查看本项目代码➡️ 查看 accounts/urls.py 代码: [my-project/accounts/urls.py](https://github.com/F16TH/my-project/tree/main/accounts/urls.py#L14)  
-(注意：你还需要在项目主 urls.py 中 include 这个应用的 URL 配置)
+或者可查看本项目代码➡️ 查看 myproject/urls.py 代码: [my-project/myproject/urls.py](https://github.com/F16TH/my-project/tree/main/myproject/urls.py)  
 
 在项目的主 urls.py 或应用的 urls.py 中添加路径：
+
+ **(除非语言切换功能只与应用有关，否则更推荐在项目的主 urls.py 中添加路径)**
 
 ```python
 # myproject/urls.py (主 URL 配置)  
 from django.contrib import admin  
 from django.urls import path, include  
-from accounts.views import set_language # 导入视图
+from django.conf import settings
 
 urlpatterns = [  
     path('admin/', admin.site.urls),  
     # ... 其他应用的 URL  
-    # path('accounts/', include('accounts.urls')), # 如果 set_language 在 accounts.urls.py  
-    path('i18n/setlang/', set_language, name='set_language'), # 直接在主 urls.py 定义  
+    path(settings.TARGET_URL + '/i18n/',include('django.conf.urls.i18n')), # 直接在主 urls.py 定义  
 ]
 
-# 或者在 accounts/urls.py 中定义  
-# from django.urls import path  
-# from . import views  
-#  
-# urlpatterns = [  
-#     # ... 其他 accounts 的 URL  
-#     path('i18n/setlang/', views.set_language, name='set_language'),  
-# ]  
-# 然后在主 urls.py 中 include: path('i18n/', include('accounts.urls')),  
-# 模板中引用 {% url 'set_language' %}
 ```
+
+#### **对`path(settings.TARGET_URL + '/i18n/',include('django.conf.urls.i18n'))`的一些说明**
+
+* `settings.TARGET_URL`是你在项目的配置文件中写入的，Django在生产环境下的挂载点，如果没有这个，在生产环境下Django无法获得完整的URL，会导致Django无法将请求URL路由到`set_language`
+* `'/i18n/'`使得该`path`路由到`settings.TARGET_URL/i18n/setlang`防止`settings.TARGET_URL`被其他视图占用导致的冲突使得语言切换功能无法工作
+* `django.conf.urls.i18n` 是 Django 内置的一个模块，专门用于处理国际化（i18n）相关的功能，比如语言切换。使用它的好处是无需自己编写语言切换的视图和 URL 模式，直接复用 Django 的内置实现即可。
+    * 核心功能：
+        * `django.conf.urls.i18n` 提供了一个默认的 URL 模式 `/i18n/setlang/`，用于处理语言切换请求。
+        * 它会调用 Django 内置的视图 `django.views.i18n.set_language` 来实现语言切换逻辑。
 
 
 ### **四. 模板语言切换控件 (templates/base.html)**
 
-在 HTML 基础模板中添加一个表单，允许用户选择语言。该表单会提交到 `set_language` 视图。以下为示例。
-或者可查看本项目代码➡️ **查看 templates/base.html 代码**: [my-project/templates/base.html](https://github.com/F16TH/my-project/tree/main/templates/base.html#L35-L47)
+在 HTML 基础模板中添加一个表单，允许用户选择语言。该表单会提交到 `set_language` 视图。
+
+以下为示例。或者可查看本项目代码➡️ **查看 templates/base.html 代码**: [my-project/templates/base.html](https://github.com/F16TH/my-project/tree/main/templates/base.html#L35-L47)
 
 ```html
 {# templates/base.html中的控件，可将此代码插入到你需要的位置 #}  
-{% load i18n %} {# 加载 i18n 标签库 #}
+{% load i18n %} {# 加载 i18n 标签库，这个和翻译相关，最好是放在文件顶以便于优先加载 #}
 
 <form action="{% url 'set_language' %}" method="post">  {# 切换语言的控件 #}
     {% csrf_token %}
@@ -283,7 +290,7 @@ urlpatterns = [
 <form action="{% url 'set_language' %}" method="post">
 ```
 * `action` 属性：
-    `{% url 'set_language' %}`：使用 Django 的 `{% url %}` 模板标签生成 `set_language` 视图的 `URL`。确保 `set_language` 视图在 `urls.py` 中正确配置。
+    `{% url 'set_language' %}`：使用 Django 的 `{% url %}` 模板标签生成 `set_language` 视图的 URL。
 * `method` 属性：
     `post`：使用 POST 方法提交表单数据，确保安全性。
 ```
@@ -297,7 +304,7 @@ urlpatterns = [
 ```
 * `name` 属性：`next`用于存储用户当前的 URL 路径。
 * `type` 属性：`hidden`隐藏字段，用户不可见。
-* `value` 属性：`{{ request.get_full_path }}`使用 Django 的 `request.get_full_path` 获取当前请求的完整路径（包括查询参数），确保语言切换后重定向回当前页面。
+* `value` 属性：`{{ request.get_full_path }}`使用 Django 的 `request.get_full_path` 获取当前请求的路径（包括查询参数），确保语言切换后重定向回当前页面。
 ```
 <select name="language" onchange="this.form.submit()">
 ```
@@ -331,6 +338,7 @@ urlpatterns = [
         `{% if code == CURRENT_LANG %}selected{% endif %}`：如果当前语言代码与选项中的语言代码匹配，则选中该选项。
     * 显示文本：
         `{{ name }}`：语言名称（例如 `English` 或 `简体中文`）。
+      
 #### **工作流程**
 1. 用户选择语言：
     用户在下拉菜单中选择一种语言（例如 `简体中文`）。
@@ -417,7 +425,10 @@ Your cart has {{ items_count }} items. Total: ${{ amount }}.
 ```
 **f. 特殊注意事项**
 
-* **不要在 HTML 属性值内直接使用 `trans` 标签** (虽然有时能工作，但不推荐，易出错)。  
+* **不要在 HTML 属性值内直接使用 `trans` 标签**
+  * **原因：**
+      * 如果翻译字符串中包含特殊字符（如 `"` 或 `'`），可能会破坏 HTML 属性的结构，这会导致 HTML 解析错误。
+      * 在 HTML 属性值中直接使用 `{% trans %}` 标签，可能会使模板代码变得复杂且难以阅读。
   * **错误:** `<input placeholder="{% trans 'Search' %}">  `
   * **正确 (方法一: 使用 as):**
   * ```
@@ -425,7 +436,7 @@ Your cart has {{ items_count }} items. Total: ${{ amount }}.
     <input placeholder="{{ search_placeholder }}">
     ```
   * **正确 (方法二: Python 中翻译):** 在视图或表单中翻译，然后传递给模板。  
-* **模板过滤器干扰:** 避免在 `trans` 标签内直接使用过滤器。  
+* **模板过滤器干扰:** 避免在 `trans` 标签内直接使用过滤器，这会导致语法错误。  
   * **错误:** `{% trans "Page"|title %}`  
   * **正确:** `{% filter title %}{% trans "page" %}{% endfilter %} ` 
 * **换行符:** `trans` 或 `blocktrans` 中的换行符会保留在 .po 文件和最终输出中。
@@ -584,7 +595,7 @@ location / {
 在配置好 Nginx 和 Gunicorn 之后将二者重启应用即可。
 ## **维护指南**
 
-* **定期更新翻译:** 使用`django-admin makemessages -l zh_Hans --ignore="venv/*" --no-obsolete`增量更新翻译文件再用`python manage.py compilemessages `编译。  
+* **定期更新翻译:** 使用`django-admin makemessages -l zh_Hans --ignore="venv/*" --no-obsolete`增量更新翻译文件（`--no-obsolete`参数会自动清理 .op 文件中不再使用的翻译条目）再用`python manage.py compilemessages `编译。  
 * **代码审查:** 检查翻译标记的使用。  
 * **测试:** 在不同语言下测试。  
 * **备份:** 备份 locale 目录 (尤其是 .po 文件)。
