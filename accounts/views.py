@@ -9,10 +9,6 @@ from django.contrib.auth.views import LoginView
 from .models import UserDocument
 from .forms import DocumentUploadForm
 
-from django.views.decorators.http import require_POST
-from django.utils.translation import activate
-from django.conf import settings
-from django.http import HttpResponseRedirect
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
@@ -79,24 +75,3 @@ def upload_document(request):
 def test_controls(request):
     messages.info(request, _("This is a test page for UI controls"))  # 测试页说明
     return render(request, 'accounts/test_controls.html')
-
-@require_POST
-def set_language(request):
-    lang_code = request.POST.get('language')
-    next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or '/'
-    
-    if lang_code in dict(settings.LANGUAGES).keys():
-        # 关键修正：使用实际的session键名 'django_language'
-        request.session['django_language'] = lang_code  # 改为直接使用字符串
-        activate(lang_code)
-        
-        response = HttpResponseRedirect(next_url)
-        response.set_cookie(
-            settings.LANGUAGE_COOKIE_NAME,  # 这个常量是存在的（默认值也是'django_language'）
-            lang_code,
-            max_age=365*24*60*60,
-            secure=request.is_secure(),
-            httponly=True
-        )
-        return response
-    return HttpResponseRedirect(next_url)

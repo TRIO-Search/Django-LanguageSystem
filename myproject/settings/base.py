@@ -144,3 +144,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # 添加会话支持（如果尚未配置）
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_AGE = 365 * 24 * 60 * 60
+
+TARGET_URL = '' #django项目的挂载点

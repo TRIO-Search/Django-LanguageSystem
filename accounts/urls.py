@@ -11,5 +11,4 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(template_name='registration/logged_out.html', next_page='home'), name='logout'),
     path('upload/', upload_document, name='upload_document'),
-    path('i18n/setlang/', views.set_language, name='set_language'),
 ]
