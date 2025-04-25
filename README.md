@@ -563,6 +563,15 @@ def my_view(request):
 
 可查看本项目代码翻译文件格式作为参考
 
+**注意：** 系统可能会模糊识别一些字符串，导致无法正确显示转换后的语言，被模糊识别的字符串在`django.po`中多了两行，参考：
+
+```
+#, fuzzy
+#|
+```
+
+正确的做法是将这两行删去，并手动修改这个待翻译项的原文和译文。
+
 ➡️ **查看 locale/zh_Hans/LC_MESSAGES/django.po 示例文件**: [my-projcet/locale/zh_Hans/LC_MESSAGES/django.po](https://github.com/F16TH/my-project/tree/main/locale/zh_Hans/LC_MESSAGES/django.po)
 
 #### **3. 编译翻译文件 (.mo)**
