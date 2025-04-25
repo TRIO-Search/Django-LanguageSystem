@@ -9,10 +9,6 @@ from django.contrib.auth.views import LoginView
 from .models import UserDocument
 from .forms import DocumentUploadForm
 
-from django.views.decorators.http import require_POST
-from django.utils.translation import activate
-from django.conf import settings
-from django.http import HttpResponseRedirect
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
