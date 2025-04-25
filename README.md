@@ -246,13 +246,12 @@ urlpatterns = [
 # from django.urls import path  
 # from . import views  
 #  
-# app_name = 'accounts' # 建议为应用 URL 设置命名空间  
 # urlpatterns = [  
 #     # ... 其他 accounts 的 URL  
-#     path('setlang/', views.set_language, name='set_language'),  
+#     path('i18n/setlang/', views.set_language, name='set_language'),  
 # ]  
 # 然后在主 urls.py 中 include: path('i18n/', include('accounts.urls')),  
-# 模板中引用变为 {% url 'accounts:set_language' %}
+# 模板中引用 {% url 'set_language' %}
 ```
 
 
